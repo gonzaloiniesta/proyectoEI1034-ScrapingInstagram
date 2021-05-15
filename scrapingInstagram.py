@@ -100,7 +100,7 @@ def download_image(url, NUM_IMG, destination = path):
     output.close()
 
     
-#PObtenemos las referancios de las imagenes del perfil y las descargamos.    
+#Obtenemos las referancios de las imagenes del perfil y las descargamos.    
 
 
 image_link = []
@@ -131,7 +131,33 @@ for h in range(0, nScrolls):
     time.sleep(2)
 
 
+def incrementar(n):
+    p = n + 1
+    return p
 
+veces = 0
+'''
+for i in range(len(image_link)):
+    print(image_link[i])
+'''
+for link in image_link:
+    #print(link)
+    driver.get(link)
+    soup_i = BeautifulSoup(driver.page_source, "html.parser")
+    #print(soup_i)
+    #print(soup_i.find_all('div', {"class":"KL4Bh"}) )
+    down = soup_i.find_all('div',{"class":"KL4Bh"})[0].find_all('img')[0].get('src')
+    #print(down)
+    download_image(down, NUM_IMG)
+    NUM_IMG = incrementar(NUM_IMG)
+    veces += 1
+    if numeroPublicaciones < 15:
+        if veces - 1 == numeroPublicaciones:
+            break
+    if veces == 15:
+        break
+
+    
     
     
     
